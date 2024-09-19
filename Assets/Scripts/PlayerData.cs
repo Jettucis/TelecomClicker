@@ -8,7 +8,7 @@ public class PlayerData
     public double Money { get; set; } = 0;
     public int ClickPower { get; set; } = 1;
     public int Clients { get; set; } = 0;
-    public long ClicksDone { get; set; } = 0;
+    public int ClicksDone { get; set; } = 0;
     // Level 1
     public int Level2G { get; set; } = 0;
     public int Cost2G { get; set; } = 10;
