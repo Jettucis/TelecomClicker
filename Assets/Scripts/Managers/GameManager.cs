@@ -14,13 +14,14 @@ public class GameManager : MonoBehaviour
     public BlockerManager m_BlockerManager;
     public CursorManager m_CursorManager;
     public ButtonManager m_ButtonManager;
+    public Spawner m_Spawner;
 
     private Random _random = new();
     private readonly int _randomMax = 1000;
 
     //For Super Clicks
     private int _clickCount = 0;
-    private float _clickTimeWindow = 0.2f;
+    private float _clickTimeWindow = 0.3f; // 0.2f real, 0.3f for "test"
     private float _timeSinceLastClick = 0f;
     private bool _isCountingClicks = false;
 
@@ -80,16 +81,18 @@ public class GameManager : MonoBehaviour
 
         if (_clickCount >= 4)
         {
+            ResetClickData();
             m_PlayerData.Money += m_PlayerData.ClickPower * 5;
             m_PlayerData.ClicksDone++;
             AudioManager.m_Instance.PlaySound("SuperClick");
-            ResetClickData();
+            m_Spawner.SpawnSuperClickText(m_PlayerData.ClickPower * 5);
         }
         else
         {
             m_PlayerData.Money += m_PlayerData.ClickPower;
             m_PlayerData.ClicksDone++;
             AudioManager.m_Instance.PlaySound("Click");
+            m_Spawner.SpawnClickText(m_PlayerData.ClickPower);
         }
 
         if (!_is2GUnlocked && m_PlayerData.ClicksDone >= 15)
